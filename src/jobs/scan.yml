@@ -1,0 +1,87 @@
+description: >
+  Scans your application source code for vulnerabilities with DefenseCode ThunderScan® SAST
+
+parameters:
+  image:
+    description: Enter a custom docker image for this job. By default CircleCI's optimized `cimg/base` image will be used.
+    type: string
+    default: "cimg/base:stable"
+  engines:
+    description: Accepts a comma separated list of SAST engine/language IDs to be used in the analysis (e.g. 1,2). Default will perform an auto-language recognition scan.
+    type: string
+    default: "0"
+  scan-name:
+    description: Specifies the name of the scan.
+    type: string
+    default: "CircleCI CLI Scan"
+  parent:
+    description: Specifies the ID of the parent application for the scan.  If set to a wildcard (*), ThunderScan will automatically assign the parent application based on the target source or create a new one.
+    type: string
+    default: ""
+  report:
+    description: Indicates if the reports should be generated.
+    type: boolean
+    default: false
+  report-filename:
+    description: Specifies the filename of generated report. The input should be without a file extension as the chosen format extensions will be automatically appended to the name.
+    type: string
+    default: "thunderscan-report"
+  report-format:
+    description:  Accepts a comma separated list of report formats to be generated at the end of the scan, e.g. html,json,xml
+    type: string
+    default: "html"
+  threshold:
+    description: Enables the client to break the build or pipeline process by returning an exit code 2 if the results match a defined vulnerability threshold. For example, with the threshold set to "high:5" the build will be interruped only if the scan results contain 5 or more high risk vulnerabilities. Usage - risk:count,risk:count,risk:count
+    type: string
+    default: "high:1"
+  ignore-suppressed:
+    description: Indicating if ThunderScan® should ignore previously suppressed vulnerabilities in result output.
+    type: boolean
+    default: false
+  diff:
+    description: Indicates if a differential/incremental scan should be performed if there is at least one baseline scan performed against an application.
+    type: boolean
+    default: false
+  excluded-vt:
+    description: Accepts a comma separated list of vulnerability type IDs to be excluded from the analysis, e.g. 0,1,2,3.
+    type: string
+    default: ""
+  purge:
+    description: Indicates if the uploaded archive should be deleted from the ThunderScan server following a finished scan.
+    type: boolean
+    default: false
+  alm-trigger:
+    description:  Issue tracking trigger ID to be used with the scan
+    type: string
+    default: ""
+  email-trigger:
+    description: Email trigger ID to be used with the scan
+    type: string
+    default: ""
+  slack-trigger:
+    description: Slack trigger ID to be used with the scan
+    type: string
+    default: ""
+
+docker:
+  - image: <<parameters.image>>
+
+steps:
+  - checkout:
+      path: ./repository
+  - run:
+      name: Download/Extract ThunderScan API CLI
+      command: |
+        wget https://download.defensecode.com/latest/clients/tscli.tar.gz -O tscli.tar.gz
+        tar xvzf tscli.tar.gz
+  - run:
+      name: ThunderScan SAST Scan
+      command: |
+        ./tscli --upload ./repository --name <<parameters.scan-name>> --engines <<parameters.engines>> --threshold <<parameters.threshold>> --diff=<<parameters.diff>> --report=<<parameters.report>> --formats <<parameters.report-format>> --filename <<parameters.report-filename>> --purge=<<parameters.purge>>
+      environment:
+        THUNDERSCAN_IGNORE_SUPPRESSIONS: <<parameters.ignore-suppressed>>
+        THUNDERSCAN_ALM_TRIGGER_ID: <<parameters.alm-trigger>>
+        THUNDERSCAN_EMAIL_TRIGGER_ID: <<parameters.email-trigger>>
+        THUNDERSCAN_SLACK_TRIGGER_ID: <<parameters.slack-trigger>>
+        THUNDERSCAN_SCAN_PARENT_ID: <<parameters.parent>>
+        THUNDERSCAN_EXLUDED_VULN_TYPES: <<parameters.excluded-vt>>
