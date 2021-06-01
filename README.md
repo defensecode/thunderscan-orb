@@ -1,4 +1,5 @@
-# DefenseCode ThunderScan Orb
+# DefenseCode ThunderScan CircleCI Orb ![ThunderScan](https://raw.githubusercontent.com/defensecode/thunderscan-action/master/images/thunderscan-icon.png) <img src="https://raw.githubusercontent.com/defensecode/thunderscan-action/master/images/github.png">
+
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/defensecode/thunderscan-action/master/images/defensecode.png">
