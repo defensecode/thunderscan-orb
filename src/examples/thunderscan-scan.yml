@@ -3,7 +3,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    deepfactor: defensecode/thunderscan@1.0.0
+    thunderscan: defensecode/thunderscan@1.0.2
   workflows:
     version: 2.1
     build:
@@ -11,6 +11,11 @@ usage:
         - thunderscan/scan:
             scan-name: "$CIRCLE_PROJECT_REPONAME/$CIRCLE_BUILD_NUM"
             report: true
-            report-filename: thunderscan-test-report
+            report-filename: thunderscan-report
             report-format: html,json
+          post-run:
+            - store_artifacts:
+                path: ./thunderscan-report.json
+            - store_artifacts:
+                path: ./thunderscan-report.html
 
