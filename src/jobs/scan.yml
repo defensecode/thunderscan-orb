@@ -62,11 +62,20 @@ parameters:
     description: Slack trigger ID to be used with the scan
     type: string
     default: ""
+  pre-run:
+    type: steps
+    default: []
+    description: "A list of steps that are run before running the tests/application"
+  post-run:
+    type: steps
+    default: []
+    description: "A list of steps to run after running the tests/application"
 
 docker:
   - image: <<parameters.image>>
 
 steps:
+  - steps: <<parameters.pre-run>>
   - checkout:
       path: ./repository
   - run:
@@ -85,3 +94,4 @@ steps:
         THUNDERSCAN_SLACK_TRIGGER_ID: <<parameters.slack-trigger>>
         THUNDERSCAN_SCAN_PARENT_ID: <<parameters.parent>>
         THUNDERSCAN_EXLUDED_VULN_TYPES: <<parameters.excluded-vt>>
+  - steps: <<parameters.post-run>>
