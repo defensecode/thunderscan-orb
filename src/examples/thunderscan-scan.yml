@@ -13,9 +13,9 @@ usage:
             report: true
             report-filename: thunderscan-report
             report-format: html,json
-          post-run:
-            - store_artifacts:
-                path: ./thunderscan-report.json
-            - store_artifacts:
-                path: ./thunderscan-report.html
+            post-run:
+              - store_artifacts:
+                  path: ./thunderscan-report.json
+              - store_artifacts:
+                  path: ./thunderscan-report.html
 
