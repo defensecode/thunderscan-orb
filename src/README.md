@@ -1,26 +1,33 @@
-# Orb Source
+# DefenseCode ThunderScan Orb
 
-Orbs are shipped as individual `orb.yml` files, however, to make development easier, it is possible to author an orb in _unpacked_ form, which can be _packed_ with the CircleCI CLI and published.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/defensecode/thunderscan-action/master/images/defensecode.png">
+</p>
 
-The default `.circleci/config.yml` file contains the configuration code needed to automatically pack, test, and deploy and changes made to the contents of the orb source in this directory.
 
-## @orb.yml
+A CircleCI Orb for DefenseCode ThunderScan SAST analysis into your CI/CD pipeline to identify security risks in your applications.
+To use this orb you simply need a running instance of the ThunderScan API.
 
-This is the entry point for our orb "tree", which becomes our `orb.yml` file later.
+* **DefenseCode ThunderScan®** is a SAST (Static Application Security Testing, WhiteBox Testing) solution for performing deep and extensive security analysis of application source code. ThunderScan® is easy to use and can be deployed during or after development with easy integration into DevOps environment and CI/CD pipeline.
 
-Within the `@orb.yml` we generally specify 4 configuration keys
+Find more info in the official website: [DefenseCode.com](https://www.defensecode.com)
 
-**Keys**
+## Usage Examples
+### Scan Application
 
-1. **version**
-    Specify version 2.1 for orb-compatible configuration `version: 2.1`
-2. **description**
-    Give your orb a description. Shown within the CLI and orb registry
-3. **display**
-    Specify the `home_url` referencing documentation or product URL, and `source_url` linking to the orb's source repository.
-4. **orbs**
-    (optional) Some orbs may depend on other orbs. Import them here.
+```yaml
+version: 2.1
 
-## See:
- - [Orb Author Intro](https://circleci.com/docs/2.0/orb-author-intro/#section=configuration)
- - [Reusable Configuration](https://circleci.com/docs/2.0/reusing-config)
+orbs:
+  thunderscan: defensecode/thunderscan@1.0.0
+
+workflows:
+  scan-workflow:
+    jobs:
+      - thunderscan/scan:
+          scan-name: "$CIRCLE_PROJECT_REPONAME/$CIRCLE_BUILD_NUM"
+          report: true
+          report-filename: thunderscan-test-report
+          report-format: html,json
+```
+
