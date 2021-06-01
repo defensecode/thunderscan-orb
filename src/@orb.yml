@@ -1,7 +1,7 @@
 version: 2.1
 
 description: >
-  DefenseCode ThunderScan® is a SAST (Static Application Security Testing, WhiteBox Testing) solution for performing deep and extensive security analysis of application source code. Developers can rapidly find and triage  security risks within your CircleCI pipeline while the AppSec team can set guardrails, receive alerts, and have continuous visibility with every build.
+  DefenseCode ThunderScan® is a SAST (Static Application Security Testing, WhiteBox Testing) solution for performing deep and extensive security analysis of application source code. Developers and AppSec team can rapidly find and triage security risks and have continuous visibility with every build.
 
 display:
   home_url: "https://www.defensecode.com"
