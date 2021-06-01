@@ -5,7 +5,7 @@
 </p>
 
 
-A CircleCI Orb for DefenseCode ThunderScan SAST analysis into your CI/CD pipeline to identify security risks in your applications.
+A CircleCI Orb for adding DefenseCode ThunderScan SAST analysis into your CI/CD pipeline to identify security risks in your applications.
 To use this orb you simply need a running instance of the ThunderScan API.
 
 **DefenseCode ThunderScan®** is a SAST (Static Application Security Testing, WhiteBox Testing) solution for performing deep and extensive security analysis of application source code. ThunderScan® is easy to use and can be deployed during or after development with easy integration into DevOps environment and CI/CD pipeline.
