@@ -1,41 +1,33 @@
-# Orb Project Template
+# DefenseCode ThunderScan Orb
 
-[![CircleCI Build Status](https://circleci.com/gh/defensecode/thunderscan-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/defensecode/thunderscan-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/defensecode/thunderscan)](https://circleci.com/orbs/registry/orb/defensecode/thunderscan) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/defensecode/thunderscan-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
-
-
-
-A starter template for orb projects. Build, test, and publish orbs automatically on CircleCI with [Orb-Tools](https://circleci.com/orbs/registry/orb/circleci/orb-tools).
-
-Additional READMEs are available in each directory.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/defensecode/thunderscan-action/master/images/defensecode.png">
+</p>
 
 
+A CircleCI Orb for DefenseCode ThunderScan SAST analysis into your CI/CD pipeline to identify security risks in your applications.
+To use this orb you simply need a running instance of the ThunderScan API.
 
-## Resources
+**DefenseCode ThunderScan®** is a SAST (Static Application Security Testing, WhiteBox Testing) solution for performing deep and extensive security analysis of application source code. ThunderScan® is easy to use and can be deployed during or after development with easy integration into DevOps environment and CI/CD pipeline.
 
-[CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/defensecode/thunderscan-orb) - The official registry page of this orb for all versions, executors, commands, and jobs described.
-[CircleCI Orb Docs](https://circleci.com/docs/2.0/orb-intro/#section=configuration) - Docs for using and creating CircleCI Orbs.
+Find more info in the official website: [DefenseCode.com](https://www.defensecode.com)
 
-### How to Contribute
+## Usage Examples
+### Scan Application
 
-We welcome [issues](https://github.com/defensecode/thunderscan-orb/issues) to and [pull requests](https://github.com/defensecode/thunderscan-orb/pulls) against this repository!
+```yaml
+version: 2.1
 
-### How to Publish
-* Create and push a branch with your new features.
-* When ready to publish a new production version, create a Pull Request from _feature branch_ to `master`.
-* The title of the pull request must contain a special semver tag: `[semver:<segement>]` where `<segment>` is replaced by one of the following values.
+orbs:
+  thunderscan: defensecode/thunderscan@1.0.0
 
-| Increment | Description|
-| ----------| -----------|
-| major     | Issue a 1.0.0 incremented release|
-| minor     | Issue a x.1.0 incremented release|
-| patch     | Issue a x.x.1 incremented release|
-| skip      | Do not issue a release|
-
-Example: `[semver:major]`
-
-* Squash and merge. Ensure the semver tag is preserved and entered as a part of the commit message.
-* On merge, after manual approval, the orb will automatically be published to the Orb Registry.
-
-
-For further questions/comments about this or other orbs, visit the Orb Category of [CircleCI Discuss](https://discuss.circleci.com/c/orbs).
+workflows:
+  scan-workflow:
+    jobs:
+      - thunderscan/scan:
+          scan-name: "$CIRCLE_PROJECT_REPONAME/$CIRCLE_BUILD_NUM"
+          report: true
+          report-filename: thunderscan-test-report
+          report-format: html,json
+```
 
