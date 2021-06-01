@@ -10,7 +10,7 @@ A [CircleCI Orb](https://circleci.com/orbs/) for adding DefenseCode ThunderScan 
 
 **DefenseCode ThunderScan®** is a SAST (Static Application Security Testing, WhiteBox Testing) solution for performing deep and extensive security analysis of application source code. ThunderScan® is easy to use and can be deployed during or after development with easy integration into DevOps environment and CI/CD pipeline.
 
-Find more info in the official website: [DefenseCode.com](https://www.defensecode.com)
+Find more info on the official website: [DefenseCode.com](https://www.defensecode.com)
 
 ## Usage Examples
 ### Scan Application

@@ -18,6 +18,8 @@ parameters:
     description: Specifies the ID of the parent application for the scan.  If set to a wildcard (*), ThunderScan will automatically assign the parent application based on the target source or create a new one.
     type: string
     default: ""
+  purge:
+    description: 
   report:
     description: Indicates if the reports should be generated.
     type: boolean
@@ -46,6 +48,10 @@ parameters:
     description: Accepts a comma separated list of vulnerability type IDs to be excluded from the analysis, e.g. 0,1,2,3.
     type: string
     default: ""
+  purge:
+    description: Indicates if the uploaded archive should be deleted from the ThunderScan server following a finished scan.
+    type: boolean
+    default: false
   alm-trigger:
     description:  Issue tracking trigger ID to be used with the scan
     type: string
@@ -66,14 +72,14 @@ steps:
   - checkout:
       path: ./repository
   - run:
-      name: Download/Extract ThunderScan API CLI-Client
+      name: Download/Extract ThunderScan API CLI
       command: |
         wget https://download.defensecode.com/latest/clients/tscli.tar.gz -O tscli.tar.gz
         tar xvzf tscli.tar.gz
   - run:
-      name: ThunderScan CLI Client Scan
+      name: ThunderScan SAST Scan
       command: |
-        ./tscli --upload ./repository --name <<parameters.scan-name>> --engines <<parameters.engines>> --threshold <<parameters.threshold>> --diff=<<parameters.diff>> --report=<<parameters.report>> --formats <<parameters.report-format>> --filename <<parameters.report-filename>>
+        ./tscli --upload ./repository --name <<parameters.scan-name>> --engines <<parameters.engines>> --threshold <<parameters.threshold>> --diff=<<parameters.diff>> --report=<<parameters.report>> --formats <<parameters.report-format>> --filename <<parameters.report-filename>> --purge=<<parameters.purge>>
       environment:
         THUNDERSCAN_IGNORE_SUPPRESSIONS: <<parameters.ignore-suppressed>>
         THUNDERSCAN_ALM_TRIGGER_ID: <<parameters.alm-trigger>>
