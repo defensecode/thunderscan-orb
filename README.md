@@ -1,6 +1,5 @@
 # DefenseCode ThunderScan CircleCI Orb ![ThunderScan](https://raw.githubusercontent.com/defensecode/thunderscan-action/master/images/thunderscan-icon.png)
 
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/defensecode/thunderscan-action/master/images/defensecode.png">
 </p>
@@ -44,4 +43,4 @@ The environment variables containing the URL of the ThunderScan<sup>®</sup> API
 
 Scan job of the ThunderScan<sup>®</sup> orb performs a checkout of the repository to make it available to the job, downloads the command line client which is then invoked to: zip, upload and initiate a scan with provided parameters (full list of parameters is available in the [orb listing](https://circleci.com/developer/orbs/orb/defensecode/thunderscan)).
 
-![circleci-example-screenshot.png](https://docs.defensecode.com/user-guide/circleci-example-screenshot.png)
+![circleci-example-screenshot](https://user-images.githubusercontent.com/29266274/124599242-bd10f380-de65-11eb-9ef6-1264ee5c4f79.png)
